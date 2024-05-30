@@ -16,7 +16,7 @@ public class SoliannaGabriel extends Robot{
 
         // first, setup
         // handle spawn randomness (write codes that get you to a known postion, corner, etc)
-        setBodyColor(Color.red);
+        setBodyColor(Color.magenta);
         while(true){
             //this code will run forever until you die
             ahead(300);
@@ -27,13 +27,28 @@ public class SoliannaGabriel extends Robot{
 
     public void onScannedRobot(ScannedRobotEvent e){
         //this code will run when we see a robot on our radar
-        fire(2);
+
+        // I used an online reference for this next bit of code, in which I adjusted
+        // my shooting power based on how far my bot was from a detected bot:
+
+         double distance = e.getDistance();
+        double powerOfShot = 1;
+       if (distance < 100){
+            powerOfShot = 3;
+        } else if (distance < 300){
+            powerOfShot = 2;
+        } else {
+            powerOfShot = 1;
+        }
+
+        fire(powerOfShot);
     }
+        
+
     public void onHitWall(HitWallEvent e){
         System.out.println("I hit a wall!");
         ahead(1000);
         turnLeft(90);
-    
 
     }
 }
